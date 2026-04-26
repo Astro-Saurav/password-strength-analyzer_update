@@ -42,11 +42,17 @@ app = FastAPI(
 )
 
 # CORS Configuration
-FRONTEND_URL = os.environ.get("FRONTEND_URL", "http://localhost:5500") # Default for static Live Server
+FRONTEND_URL = os.environ.get("FRONTEND_URL", "http://localhost:5500").rstrip("/")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[FRONTEND_URL, "http://localhost:5500", "http://127.0.0.1:5500"],
+    allow_origins=[
+        FRONTEND_URL,
+        f"{FRONTEND_URL}/",
+        "http://localhost:5500",
+        "http://127.0.0.1:5500",
+        "http://localhost:8000"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
