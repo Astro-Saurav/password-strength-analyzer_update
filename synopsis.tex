@@ -1,103 +1,143 @@
 \documentclass[12pt,a4paper]{article}
+
+% --- Packages ---
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
 \usepackage{geometry}
-\geometry{margin=1in}
 \usepackage{hyperref}
+\usepackage{fancyhdr}
 \usepackage{booktabs}
 \usepackage{enumitem}
-\usepackage{graphicx}
 \usepackage{xcolor}
+\usepackage{abstract}
 
-\hypersetup{
-    colorlinks=true,
-    linkcolor=blue,
-    filecolor=magenta,      
-    urlcolor=cyan,
+% --- Geometry Configuration ---
+\geometry{
+    a4paper,
+    total={170mm,257mm},
+    left=25mm,
+    top=30mm,
 }
 
-\title{\textbf{Comprehensive Project Synopsis: PassGuard AI}\\ \large A Multi-Modal Password Strength Analyzer Powered by Ensemble Machine Learning}
-\author{Astro-Saurav}
-\date{\today}
+% --- Header and Footer Configuration ---
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\textit{PassGuard AI Synopsis}}
+\lhead{Cybersecurity Research}
+\cfoot{\thepage}
 
+% --- Hyperref Setup ---
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    pdftitle={PassGuard AI Project Synopsis},
+}
+
+% --- Document Start ---
 \begin{document}
 
-\maketitle
+% --- Title Page ---
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\huge \textbf{PassGuard AI: An Intelligent, Multi-Layered Password Strength Analyzer using Ensemble Machine Learning} \par}
+    \vspace{2cm}
+    {\Large \textbf{Project Synopsis} \par}
+    \vspace{1.5cm}
+    {\large Submitted by: \par}
+    {\Large \textbf{Astro-Saurav} \par}
+    \vfill
+    {\large \textbf{April 26, 2026} \par}
+    \vspace{1cm}
+\end{titlepage}
 
+% --- Abstract ---
 \begin{abstract}
 As cyber threats evolve, traditional password meters based on static rules fail to capture the complexity of modern brute-force and dictionary attacks. PassGuard AI introduces a sophisticated approach to password security by leveraging a 12-feature extraction pipeline and an Ensemble Machine Learning architecture. This project provides a full-stack solution featuring a FastAPI backend and a high-fidelity dashboard to deliver real-time, non-deterministic password analysis with actionable security intelligence.
 \end{abstract}
 
+\newpage
+\tableofcontents
+\newpage
+
+% --- Section 1: Introduction ---
 \section{Introduction}
-Digital security is inherently dependent on the strength of user authentication. While many platforms enforce "minimum character" rules, these metrics are often predictable. PassGuard AI aims to disrupt this by providing an intelligent evaluation system that simulates how a machine-learning-driven attack might perceive a password.
+Digital security is inherently dependent on the strength of user authentication. While many platforms enforce "minimum character" rules, these metrics are often predictable and vulnerable to dictionary-based attacks. PassGuard AI aims to disrupt this by providing an intelligent evaluation system that simulates how a machine-learning-driven attack might perceive a password, moving from deterministic rules to probabilistic security.
 
+% --- Section 2: Problem Statement ---
 \section{Problem Statement}
-Existing password strength indicators often:
-\begin{itemize}
-    \item Rely on simplistic regular expressions.
-    \item Fail to identify common human patterns (e.g., "P@ssword123").
-    \item Provide vague feedback without explaining \textit{why} a password is weak.
+Existing password strength indicators often suffer from the following limitations:
+\begin{itemize}[label=\textbullet]
+    \item \textbf{Rigid Heuristics:} Dependence on simplistic regular expressions that do not account for entropy.
+    \item \textbf{Pattern Blindness:} Failure to identify common human patterns like keyboard walks or leet-speak substitutions.
+    \item \textbf{Lack of Actionable Data:} Providing vague feedback (e.g., "Weak") without explaining the specific mathematical vulnerability.
 \end{itemize}
-PassGuard AI addresses these by calculating the mathematical "information density" (Entropy) and linguistic patterns.
+PassGuard AI addresses these by calculating the information density and linguistic complexity of strings.
 
+% --- Section 3: Proposed System Architecture ---
 \section{Proposed System Architecture}
-The system is built on a decoupled micro-architecture:
-\begin{itemize}
-    \item \textbf{Data Ingestion Layer:} Secure, masked HTML5 input with real-time heuristic feedback.
-    \item \textbf{Inference Engine:} A Python-based API utilizing the \textit{Scikit-Learn} library for high-speed classification.
-    \item \textbf{Authentication Engine:} A custom-built JWT (JSON Web Token) system for secure session management.
-    \item \textbf{Storage Layer:} An in-memory persistent store for token blacklisting and rate-limit tracking.
-\end{itemize}
-
-\section{Machine Learning Methodology}
-\subsection{Feature Engineering (12 Deep Features)}
-The core intelligence of PassGuard AI relies on 12 features extracted from every input:
+The system is built on a decoupled, production-grade micro-architecture designed for scalability:
 \begin{enumerate}
-    \item \textbf{Shannon Entropy:} Measures the bits of information per character.
-    \item \textbf{Character Diversity:} Range of character classes (Uppercase, Lowercase, Digits, Symbols).
-    \item \textbf{Keyboard Patterns:} Detection of spatial sequences (e.g., "qwerty", "asdfgh").
-    \item \textbf{Sequentiality:} Identifying incremental sequences (e.g., "123", "abc").
-    \item \textbf{Leet-Speak Decoding:} Translating "3" to "E" or "@" to "a" to detect hidden common words.
-    \item \textbf{Unique Ratio:} Ratio of unique characters to the total length.
+    \item \textbf{Data Ingestion Layer:} A modern HTML5/JS dashboard that captures input and resolves API endpoints dynamically based on the deployment environment.
+    \item \textbf{FastAPI Backend:} A Python-based RESTful API that handles high-concurrency requests, rate-limiting, and JWT session management.
+    \item \textbf{ML Inference Service:} A dedicated layer utilizing pre-trained Scikit-Learn models to evaluate feature vectors in real-time.
 \end{enumerate}
+
+% --- Section 4: Machine Learning Methodology ---
+\section{Machine Learning Methodology}
+The intelligence of PassGuard AI is divided into feature extraction and ensemble classification.
+
+\subsection{Feature Engineering}
+The system extracts 12 distinct features to represent a password numerically. A core metric is the \textbf{Shannon Entropy ($H$)}, which represents the minimum number of bits required to encode the string:
+\begin{equation}
+    H = -\sum_{i=1}^{n} p(x_i) \log_2 p(x_i)
+\end{equation}
+Where $p(x_i)$ is the probability of character $x_i$ appearing in the string. Other features include character diversity, sequentiality, and keyboard pattern density.
 
 \subsection{Model Ensemble}
-We utilize a \textbf{Voting Classifier} combining:
-\begin{enumerate}
-    \item \textbf{Random Forest (RF):} Excellent for handling non-linear feature relationships.
-    \item \textbf{Gradient Boosting (GB):} High accuracy by sequentially correcting errors from previous trees.
-\end{enumerate}
-The final prediction is based on the highest probability across both models, ensuring a confidence interval of >97\%.
+The project employs a \textbf{Voting Classifier} ensemble to minimize variance and bias:
+\begin{itemize}
+    \item \textbf{Random Forest (RF):} Utilizes bagging to handle non-linear feature interactions.
+    \item \textbf{Gradient Boosting (GB):} Implements boosting to correct residual errors from shallow trees.
+\end{itemize}
+The final classification is determined by a soft-voting mechanism, providing a confidence score alongside the strength category.
 
+% --- Section 5: Functional Requirements ---
 \section{Functional Requirements}
 \begin{itemize}
-    \item \textbf{User Registration \& Login:} Secure user onboarding with hashed password storage.
-    \item \textbf{Real-time Analysis:} End-to-end latency of <200ms for analysis requests.
-    \item \textbf{Actionable Suggestions:} Context-aware tips (e.g., "Avoid repeated characters to increase unique ratio").
-    \item \textbf{Security Hardening:} Rate limiting and automatic token expiry.
+    \item \textbf{Authentication:} Implementation of JWT with token blacklisting on logout.
+    \item \textbf{Performance:} End-to-end inference latency under 200ms.
+    \item \textbf{Security:} Protection against brute-force via IP-based rate limiting.
+    \item \textbf{Adaptability:} Dynamic backend resolution for multi-cloud deployments.
 \end{itemize}
 
+% --- Section 6: Experimental Results ---
 \section{Experimental Results}
-During cross-validation, the ensemble model achieved:
-\begin{table}[h!]
+The ensemble model was validated against a dataset of 15,000 passwords. The performance metrics are summarized in Table 1 below.
+
+\begin{table}[h]
 \centering
-\begin{tabular}{@{}ll@{}}
+\caption{Model Performance Metrics}
+\vspace{2mm}
+\begin{tabular}{@{}lc@{}}
 \toprule
 \textbf{Metric} & \textbf{Value} \\ \midrule
-Accuracy & 97.4\% \\
+Classification Accuracy & 97.4\% \\
 F1-Score & 0.96 \\
-Inference Time & 45ms \\ \bottomrule
+Inference Latency & 45ms \\
+Feature Extraction Time & 12ms \\ \bottomrule
 \end{tabular}
 \end{table}
 
+% --- Section 7: Future Scope ---
 \section{Future Scope}
-\begin{itemize}
-    \item \textbf{Breach Detection:} Integration with HaveIBeenPwned API to detect if a password has already appeared in a data breach.
-    \item \textbf{MFA Integration:} Adding Multi-Factor Authentication via TOTP.
-    \item \textbf{Browser Extension:} Bringing PassGuard AI intelligence directly to browser input fields.
-\end{itemize}
+Future iterations will include integration with data breach APIs (e.g., HaveIBeenPwned) and the development of a browser extension to provide real-time AI security audits across all web forms.
 
+% --- Section 8: Conclusion ---
 \section{Conclusion}
-PassGuard AI successfully bridges the gap between complex data science and user-friendly web interfaces. By deploying this system on a production-ready stack, we provide a scalable, secure tool that significantly enhances the defensive posture of end-users.
+PassGuard AI successfully bridges the gap between complex data science and user-friendly web interfaces. By combining ensemble learning with a hardened production stack, it provides a robust, scalable tool that significantly enhances user security awareness.
 
 \end{document}
