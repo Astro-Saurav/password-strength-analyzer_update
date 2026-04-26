@@ -10,10 +10,6 @@ ENV/
 # Environment variables
 .env
 
-# Models
-*.pkl
-*.pt
-
 # OS
 .DS_Store
 Thumbs.db
